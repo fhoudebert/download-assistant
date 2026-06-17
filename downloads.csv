@@ -1,0 +1,29 @@
+# install-assistant – fichier de téléchargements
+# Format : destination,url[,format]
+#
+# Colonne 3 – format (optionnel) :
+#   vide ou "auto" → détection par extension du fichier
+#   zip            → forcer extraction ZIP
+#   7z / 7zip      → forcer extraction 7-Zip
+#   tar.gz / tgz   → forcer extraction TAR+GZIP
+#   tar.bz2 / tbz2 → forcer extraction TAR+BZIP2
+#   tar.xz  / txz  → forcer extraction TAR+XZ
+#   gz             → décompresser un seul fichier .gz
+#   no             → ne pas extraire même si extension d'archive
+#
+# ─────────────────────────────────────────────────────────────────────────────
+# Modèles Whisper.cpp  –  fichiers .bin simples (pas d'extraction)
+# Source : https://huggingface.co/ggerganov/whisper.cpp
+# ─────────────────────────────────────────────────────────────────────────────
+build/whisper/models,https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin
+build/whisper/models,https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.bin
+build/whisper/models,https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3.bin
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Exemples d'utilisation de la colonne format
+# (lignes commentées – décommenter selon les besoins)
+# ─────────────────────────────────────────────────────────────────────────────
+# build/ffmpeg/bin,https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-lgpl.tar.xz
+# build/yt-dlp,https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.09/yt-dlp_linux.zip
+# build/whisper,https://github.com/ggml-org/whisper.cpp/releases/download/v1.8.6/whisper-bin-x64.zip
+
