@@ -101,26 +101,6 @@ dist,https://example.com/release.zip,no
 | `.tar.xz` / `.txz`   | `tar` + `xz2`     | liblzma (statically compiled) |
 | `.gz` (single file)  | `flate2`          | None                          |
 
-## Console output
 
-┌─ install-assistant ─────────────────────────────────────┐
-│ Progress global : 2/3 | ███████████░░░░░░ 60%          │
-│ OK: 1  |  ❌: 0                                         │
-├─────────────────────────────────────────────────────────┤
-│ Étape en cours                                         │
-│ █████████████████████░░░░░░░░░░░░░░░ 68%               │
-├─────────────────────────────────────────────────────────┤
-│ #  │ Fichier            │ Destination   │ Taille  │ Statut │
-│────┼────────────────────┼───────────────┼─────────┼────────│
-│ ✓1 │ ggml-base.bin     │ build/whi...  │ 147 MiB │ ✔ 20s  │
-│ ▶2 │ ggml-medium.bin   │ build/whi...  │ 1.5 GiB │ ⬇ 68%  │
-│ ⏳3 │ ggml-large-v3...  │ build/whi...  │   -     │ en attente │
-├─────────────────────────────────────────────────────────┤
-│ Journal                                                   │
-│ [14:32:01] [1/3] ⬇  ggml-base.bin                        │
-│ [14:35:22] [1/3] ✔ Terminé (147 MiB en 201s)             │
-├─────────────────────────────────────────────────────────┤
-│ [q] Quitter  ·  fermeture auto dans 4s                  │
-└─────────────────────────────────────────────────────────┘
 
 
