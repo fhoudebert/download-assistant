@@ -3,14 +3,6 @@
 Downloads a list of files described in a CSV, creates the required directory structure, and automatically extracts archives.
 ![rust](https://img.shields.io/badge/rust-2021-vert?logo=rust)
 
-# Transcribe
-
-
-![License](https://img.shields.io/badge/license-MIT-green)
-![Rust](https://img.shields.io/badge/python-3.12-blue)
-
-
-
 ## Compilation
 
 ```bash
