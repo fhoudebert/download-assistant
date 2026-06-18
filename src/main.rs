@@ -162,15 +162,41 @@ impl AppState {
 
 // ─── Point d'entrée ──────────────────────────────────────────────────────────
 
+/// Retourne le répertoire contenant l'exécutable courant.
+///
+/// Contrairement à `env::current_dir()`, ce chemin est stable quel que soit
+/// le répertoire de travail depuis lequel le programme est invoqué —
+/// y compris via `bash -c /chemin/exe` ou `Command::new("bash").arg("-c").arg(path)`.
+///
+/// `canonicalize()` résout les éventuels symlinks (ex : /proc/self/exe → vrai chemin).
+fn exe_dir() -> Result<PathBuf> {
+    let exe = env::current_exe()
+        .context("Impossible de déterminer le chemin de l'exécutable")?;
+    let exe = exe.canonicalize().unwrap_or(exe); // non-fatal si échec
+    exe.parent()
+        .map(|p| p.to_path_buf())
+        .ok_or_else(|| anyhow::anyhow!("L'exécutable n'a pas de répertoire parent"))
+}
+
 fn main() -> Result<()> {
     let args: Vec<String> = env::args().collect();
 
-    let csv_path = args.get(1).map(PathBuf::from)
-        .unwrap_or_else(|| PathBuf::from(DEFAULT_CSV));
+    // Répertoire de l'exécutable – indépendant du répertoire de travail courant.
+    // Fonctionne même si le programme est lancé via :
+    //   /bin/bash -c /chemin/vers/install-assistant
+    //   std::process::Command::new("/bin/bash").arg("-c").arg(exe_path)
+    // current_exe() lit /proc/self/exe sous Linux (symlinks résolus nativement).
+    let exe_dir = exe_dir()?;
 
+    // Par défaut : downloads.csv à côté de l'exécutable
+    let csv_path = args.get(1)
+        .map(PathBuf::from)
+        .unwrap_or_else(|| exe_dir.join(DEFAULT_CSV));
+
+    // Par défaut : destinations relatives au répertoire de l'exécutable
     let base_dir: PathBuf = match args.get(2) {
         Some(p) => PathBuf::from(p),
-        None    => env::current_dir().context("Impossible de lire le répertoire courant")?,
+        None    => exe_dir.clone(),
     };
 
     // ── Parsing CSV ──────────────────────────────────────────────────────────
